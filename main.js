@@ -1,6 +1,6 @@
-const roleHarvester = require('harvester');
-const roleUpgrader = require('upgrader');
-const roleBuilder = require('builder');
+const roleHarvester = require('role.harvester');
+const roleUpgrader = require('role.upgrader');
+const roleBuilder = require('role.builder');
 
 module.exports.loop = function () {
     for(let i in Game.spawns) {
