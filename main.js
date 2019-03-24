@@ -4,7 +4,7 @@ const roleBuilder = require('builder');
 
 module.exports.loop = function () {
     for(const i in Game.spawns) {
-        Game.spawns[i].createCreep(['WORK', 'MOVE', 'MOVE', 'CARRY']);
+        Game.spawns[i].spawnCreep([WORK, MOVE, MOVE, CARRY], {'role': 'harvest'});
     }
 
     for(var name in Game.creeps) {
