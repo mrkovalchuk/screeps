@@ -57,7 +57,7 @@ module.exports.loop = function () {
         function runRole(value, key, map) {
             console.log("TRY-1 TO WORK: "+value);
             if(spawning_creeps){
-                if (!spawning_creeps.get(spawn.id).includes(key))
+                if (spawning_creeps.get(spawn.id) && spawning_creeps.get(spawn.id).includes(key))
                     value.runRole()
             }
             else{
