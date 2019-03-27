@@ -7,6 +7,15 @@ class Creep {
         this._functions = []
     }
 
+    static defineCreep(creep){
+        switch(creep.memory.role) {
+            case 'builder':
+                return new CreepBuilder.defineCreep(creep);
+            default:
+                break;
+        }
+    }
+
     static createCreep(role) {
         switch(role) {
             case 'builder':  // if (x === 'value1')
@@ -29,6 +38,13 @@ class CreepBuilder extends Creep {
         const creepName = 'B|Ball#'+ Math.floor(Math.random() * 1000);
         const creep = Game.spawns[i].spawnCreep(BUILDER_BODY, 'B|'+creepName, {memory: {role: 'builder'}});
         super(creep);
+        this._functions = [
+            build_structure,
+        ];
+    }
+
+    static defineCreep(creep){
+        this.creep = creep;
         this._functions = [
             build_structure,
         ];
