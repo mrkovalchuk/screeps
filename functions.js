@@ -1,4 +1,4 @@
-function build_structure(creep) {
+const build_structure = function(creep) {
     let targets = creep.room.find(FIND_CONSTRUCTION_SITES);
     if (targets.length) {
         while (creep.carry.energy) {
@@ -9,4 +9,6 @@ function build_structure(creep) {
         return true
     }
     return false
-}
+};
+
+module.exports = build_structure;

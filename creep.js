@@ -27,7 +27,8 @@ class Creep {
 
     runRole() {
         for(let i in this._functions){
-            console.log('Function: ' + this._functions[i])
+            console.log('Function: ' + this._functions[i]);
+            this._functions[i](this.creep)
         }
     }
 }
