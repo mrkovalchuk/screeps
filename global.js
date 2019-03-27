@@ -1,2 +1,4 @@
 module.exports.BUILDER_BODY = [WORK, WORK, WORK, MOVE, MOVE, CARRY];
-module.exports.CREEP_MAP = new Map();
+let CREEP_MAP = new Map();
+
+module.exports.CREEP_MAP = CREEP_MAP;

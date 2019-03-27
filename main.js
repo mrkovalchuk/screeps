@@ -1,5 +1,5 @@
 const Creep = require('creep');
-const CREEP_MAP = require('global');
+let CREEP_MAP = require('global');
 
 const roleHarvester = require('role.harvester');
 const roleUpgrader = require('role.upgrader');
@@ -39,7 +39,7 @@ module.exports.loop = function () {
     function runRole(value, key, map){
         value.runRole()
     }
-
+    console.log(CREEP_MAP instanceof Map);
     CREEP_MAP.forEach(runRole);
 
     for(let name in Game.creeps) {
