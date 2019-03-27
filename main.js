@@ -32,7 +32,15 @@ module.exports.loop = function () {
         }
         else if(builders.length < (_.filter(Game.creeps).length/3.5)) {
             let creep = Creep.createCreep('builder');
-        }
+            if(spawning_creeps.has(spawn.id)){
+                spawning_creeps[spawn.id].push(creep.id)
+            }
+            else{
+                spawning_creeps.set(spawn.id, [creep.id]);
+            }
+
+            CREEP_MAP.set(creep.id, creep)
+            }
 
         else if(upgraders.length < 2) {
             spawn.spawnCreep([WORK, MOVE, WORK, CARRY, WORK], 'U|'+creepName, {memory: {role: 'upgrader'}});
@@ -42,14 +50,7 @@ module.exports.loop = function () {
             spawn.spawnCreep([WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
         }
 
-        if(spawning_creeps.has(spawn.id)){
-            spawning_creeps[spawn.id].push(creep.id)
-        }
-        else{
-            spawning_creeps.set(spawn.id, [creep.id]);
-        }
 
-        CREEP_MAP.set(creep.id, creep)
     }
     function runRole(value, key, map){
         if(!spawning_creeps.includes(key))
