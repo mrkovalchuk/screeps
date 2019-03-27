@@ -1,4 +1,7 @@
-const build_structure = require('functions');
+const upgrade_controller = require("./functions").upgrade_controller;
+const repair_structure = require("./functions").repair_structure;
+const use_withdraw = require("./functions").use_withdraw;
+const build_structure = require("./functions").build_structure;
 const BUILDER_BODY = require("./global").BUILDER_BODY;
 
 class Creep {
@@ -35,19 +38,17 @@ class Creep {
 
 
 class CreepBuilder extends Creep {
-    constructor() {
-        const creepName = 'B|Ball#'+ Math.floor(Math.random() * 1000);
-        const creep = Game.spawns['PrimeTown'].spawnCreep(BUILDER_BODY, 'B|'+creepName, {memory: {role: 'builder'}});
+    constructor(creep=NaN) {
+        if(!creep){
+            const creepName = 'B|Ball#'+ Math.floor(Math.random() * 1000);
+            const creep = Game.spawns['PrimeTown'].spawnCreep(BUILDER_BODY, 'B|'+creepName, {memory: {role: 'builder'}});
+        }
         super(creep);
         this._functions = [
             build_structure,
-        ];
-    }
-
-    static defineCreep(creep){
-        this.creep = creep;
-        this._functions = [
-            build_structure,
+            use_withdraw,
+            repair_structure,
+            upgrade_controller
         ];
     }
 }

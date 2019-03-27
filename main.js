@@ -39,7 +39,7 @@ module.exports.loop = function () {
     function runRole(value, key, map){
         value.runRole()
     }
-    console.log(CREEP_MAP instanceof Map);
+    console.log("CREEP_MAP: " + CREEP_MAP);
     CREEP_MAP.forEach(runRole);
 
     for(let name in Game.creeps) {
@@ -51,8 +51,8 @@ module.exports.loop = function () {
         if(creep.memory.role === 'upgrader') {
             roleUpgrader.run(creep);
         }
-        if(creep.memory.role === 'builder') {
-            roleBuilder.run(creep);
-        }
+        // if(creep.memory.role === 'builder') {
+        //     roleBuilder.run(creep);
+        // }
     }
 };
