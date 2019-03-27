@@ -41,7 +41,7 @@ class CreepBuilder extends Creep {
     constructor(creep=NaN) {
         if(!creep){
             const creepName = 'B|Ball#'+ Math.floor(Math.random() * 1000);
-            const creep = Game.spawns['PrimeTown'].spawnCreep(BUILDER_BODY, 'B|'+creepName, {memory: {role: 'builder'}});
+            const creep = Game.spawns['PrimeTown'].spawnCreep(BUILDER_BODY, creepName, {memory: {role: 'builder'}});
         }
         super(creep);
         this._functions = [
