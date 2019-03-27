@@ -7,6 +7,7 @@ const BUILDER_BODY = require("./global").BUILDER_BODY;
 class Creep {
     constructor(creep) {
         this.creep = creep;
+        console.log('WE ARE HERE, AND THIS OUR CREEP: '+this.creep+'AND ANOTHER CREEP:'+creep);
         this._functions = []
     }
 
@@ -40,10 +41,11 @@ class Creep {
 
 class CreepBuilder extends Creep {
     constructor(creep=NaN) {
-        if(!creep){
+        if(!creep) {
             console.log('WE ALMOST CREATED CREEP');
-            const creepName = 'B|Ball#'+ Math.floor(Math.random() * 1000);
+            const creepName = 'B|Ball#' + Math.floor(Math.random() * 1000);
             const creep = Game.spawns['PrimeTown'].spawnCreep(BUILDER_BODY, creepName, {memory: {role: 'builder'}});
+            super(creep);
         }
         super(creep);
         console.log('IT\'S OUR CREEP: ' + this.creep);
