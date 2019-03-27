@@ -1,5 +1,5 @@
-const BUILDER_BODY = require('global');
 const build_structure = require('functions');
+const BUILDER_BODY = require("./global").BUILDER_BODY;
 
 class Creep {
     constructor(creep) {
