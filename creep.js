@@ -41,13 +41,13 @@ class Creep {
 
 class CreepBuilder extends Creep {
     constructor(creep=NaN) {
+        super(creep);
         if(!creep) {
             console.log('WE ALMOST CREATED CREEP');
             const creepName = 'B|Ball#' + Math.floor(Math.random() * 1000);
             const creep = Game.spawns['PrimeTown'].spawnCreep(BUILDER_BODY, creepName, {memory: {role: 'builder'}});
-            super(creep);
+            this.creep = creep
         }
-        super(creep);
         console.log('IT\'S OUR CREEP: ' + this.creep);
         this._functions = [
             build_structure,
