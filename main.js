@@ -34,7 +34,7 @@ module.exports.loop = function () {
         else if(builders.length < (_.filter(Game.creeps).length/3.5)) {
             let creep = Creep.createCreep('builder');
             if(spawning_creeps.has(spawn.id)){
-                spawning_creeps[spawn.id].push(creep.id)
+                spawning_creeps.get(spawn.id).push(creep.id)
             }
             else{
                 spawning_creeps.set(spawn.id, [creep.id]);
@@ -51,16 +51,24 @@ module.exports.loop = function () {
             spawn.spawnCreep([WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
         }
 
+    }
+    for(const i in Game.spawns) {
+        let spawn = Game.spawns[i];
         function runRole(value, key, map) {
+            console.log("TRY-1 TO WORK: "+value);
             if(spawning_creeps){
-                if (!spawning_creeps[spawn.id].includes(key))
+                if (!spawning_creeps.get(spawn.id).includes(key))
                     value.runRole()
             }
+            else{
+                console.log("TRY-2 TO WORK: "+value);
+                value.runRole()
+            }
         }
+        console.log("CREEPS:"+CREEP_MAP.values());
         if(CREEP_MAP.values()){
             CREEP_MAP.forEach(runRole);
         }
-
     }
 
 
