@@ -25,7 +25,7 @@ class Creep {
 
 
 class CreepBuilder extends Creep {
-    constructor(...args) {
+    constructor() {
         const creepName = 'B|Ball#'+ Math.floor(Math.random() * 1000);
         const creep = Game.spawns[i].spawnCreep(BUILDER_BODY, 'B|'+creepName, {memory: {role: 'builder'}});
         super(creep);
@@ -34,4 +34,7 @@ class CreepBuilder extends Creep {
         ];
     }
 }
+
+
+module.exports.Creep = Creep;
 
