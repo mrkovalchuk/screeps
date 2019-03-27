@@ -16,9 +16,10 @@ module.exports.loop = function () {
     for(const i in Game.spawns) {
         let spawn = Game.spawns[i];
         function cleaned_spawning_list() {
-            if(!spawn.spawning){
-                spawning_creeps.delete(spawn.id)
-            }
+            spawning_creeps.delete(spawn.id)
+        }
+        if(!spawn.spawning) {
+            cleaned_spawning_list()
         }
 
         if((_.filter(Game.creeps).length) >= spawn.memory.maxCreeps){
@@ -50,14 +51,15 @@ module.exports.loop = function () {
             spawn.spawnCreep([WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
         }
 
+        function runRole(value, key, map){
+            if(!spawning_creeps[spawn.id].includes(key))
+                value.runRole()
+        }
+        console.log("CREEP_MAP: " + CREEP_MAP);
+        CREEP_MAP.forEach(runRole);
 
     }
-    function runRole(value, key, map){
-        if(!spawning_creeps.includes(key))
-            value.runRole()
-    }
-    console.log("CREEP_MAP: " + CREEP_MAP);
-    CREEP_MAP.forEach(runRole);
+
 
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];
