@@ -10,34 +10,50 @@ module.exports.loop = function () {
     let upgraders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'upgrader'});
     let builders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'builder'});
     let harvesters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'harvester'});
+    let spawning_creeps = new Map();
+
 
     for(const i in Game.spawns) {
-        if((_.filter(Game.creeps).length) >= Game.spawns[i].memory.maxCreeps){
+        let spawn = Game.spawns[i];
+        function cleaned_spawning_list() {
+            if(!spawn.spawning){
+                spawning_creeps.delete(spawn.id)
+            }
+        }
+
+        if((_.filter(Game.creeps).length) >= spawn.memory.maxCreeps){
             break;
         }
         const creepName = 'Ball#'+ Math.floor(Math.random() * 1000);
         console.log('upgraders:  '+ upgraders.length + '\n' + 'builders: ' + builders.length + '\n' + 'harvesters: '+ harvesters.length);
 
         if(harvesters.length < 4){
-            Game.spawns[i].spawnCreep([WORK, WORK, MOVE, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
+            spawn.spawnCreep([WORK, WORK, MOVE, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
         }
         else if(builders.length < (_.filter(Game.creeps).length/3.5)) {
             let creep = Creep.createCreep('builder');
-            CREEP_MAP.set(creep.id, creep)
         }
 
         else if(upgraders.length < 2) {
-            Game.spawns[i].spawnCreep([WORK, MOVE, WORK, CARRY, WORK], 'U|'+creepName, {memory: {role: 'upgrader'}});
+            spawn.spawnCreep([WORK, MOVE, WORK, CARRY, WORK], 'U|'+creepName, {memory: {role: 'upgrader'}});
         }
 
         else if(!Game.spawns[i].memory.stopHarvester){
-
-            Game.spawns[i].spawnCreep([WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
-
+            spawn.spawnCreep([WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
         }
+
+        if(spawning_creeps.has(spawn.id)){
+            spawning_creeps[spawn.id].push(creep.id)
+        }
+        else{
+            spawning_creeps.set(spawn.id, [creep.id]);
+        }
+
+        CREEP_MAP.set(creep.id, creep)
     }
     function runRole(value, key, map){
-        value.runRole()
+        if(!spawning_creeps.includes(key))
+            value.runRole()
     }
     console.log("CREEP_MAP: " + CREEP_MAP);
     CREEP_MAP.forEach(runRole);
