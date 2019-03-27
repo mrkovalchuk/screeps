@@ -51,12 +51,15 @@ module.exports.loop = function () {
             spawn.spawnCreep([WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
         }
 
-        function runRole(value, key, map){
-            if(!spawning_creeps[spawn.id].includes(key))
-                value.runRole()
+        function runRole(value, key, map) {
+            if(spawning_creeps){
+                if (!spawning_creeps[spawn.id].includes(key))
+                    value.runRole()
+            }
         }
-        console.log("CREEP_MAP: " + CREEP_MAP);
-        CREEP_MAP.forEach(runRole);
+        if(CREEP_MAP.values()){
+            CREEP_MAP.forEach(runRole);
+        }
 
     }
 
