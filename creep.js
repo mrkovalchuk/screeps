@@ -19,10 +19,10 @@ class Creep {
         }
     }
 
-    static createCreep(role) {
+    static createCreep(role, creep=NaN) {
         switch(role) {
             case 'builder':  // if (x === 'value1')
-                return new CreepBuilder();
+                return new CreepBuilder(creep);
             default:
                 break;
         }
