@@ -22,6 +22,7 @@ class Creep {
     static createCreep(role, creep=NaN) {
         switch(role) {
             case 'builder':  // if (x === 'value1')
+                console.log('TRY CREATE BUILDER');
                 return new CreepBuilder(creep);
             default:
                 break;
@@ -30,7 +31,7 @@ class Creep {
 
     runRole() {
         for(let i in this._functions){
-            console.log('Function: ' + this._functions[i]);
+            console.log('Function: ' + this.creep.name);
             this._functions[i](this.creep)
         }
     }
@@ -40,10 +41,12 @@ class Creep {
 class CreepBuilder extends Creep {
     constructor(creep=NaN) {
         if(!creep){
+            console.log('WE ALMOST CREATED CREEP');
             const creepName = 'B|Ball#'+ Math.floor(Math.random() * 1000);
             const creep = Game.spawns['PrimeTown'].spawnCreep(BUILDER_BODY, creepName, {memory: {role: 'builder'}});
         }
         super(creep);
+        console.log('IT\'S OUR CREEP: ' + this.creep);
         this._functions = [
             build_structure,
             use_withdraw,
