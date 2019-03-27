@@ -52,5 +52,5 @@ class CreepBuilder extends Creep {
 }
 
 
-module.exports.Creep = Creep;
+module.exports = Creep;
 
