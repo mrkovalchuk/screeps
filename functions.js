@@ -1,12 +1,16 @@
 const build_structure = function(creep) {
-    let targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-    if (targets.length) {
-        creep.memory.target = target;
+    let target = creep.memory.build_target;
+    if(!target) {
+        target = creep.room.find(FIND_CONSTRUCTION_SITES)[0];
+    }
+    if (target) {
+        creep.memory.build_target = target;
 
-        while (creep.carry.energy) {
-            if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#303aff'}});
-            }
+        if (creep.build(target) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(target, {visualizePathStyle: {stroke: '#303aff'}});
+        }
+        if (target.progress === target.progressTotal) {
+            creep.memory.build_target = null
         }
         return true
     }
@@ -14,17 +18,21 @@ const build_structure = function(creep) {
 };
 
 const repair_structure = function(creep) {
-    let target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
-        filter: object => object.hits < object.hitsMax
-    }));
+    let target = creep.memory.repair_target;
+    if(!target){
+        target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
+            filter: object => object.hits < object.hitsMax
+        }));
+    }
 
     if(target){
-        creep.memory.target = target;
+        creep.memory.repair_target = target;
 
-        while(target.hits < target.hitsMax && creep.carry.energy > 0){
-            if(creep.repair(target) === ERR_NOT_IN_RANGE){
-                creep.moveTo(target)
-            }
+        if(creep.repair(target) === ERR_NOT_IN_RANGE){
+            creep.moveTo(target)
+        }
+        if(target.hits === target.hitsMax) {
+            creep.memory.repair_target = null
         }
         return true
     }
@@ -33,10 +41,8 @@ const repair_structure = function(creep) {
 
 
 const upgrade_controller = function(creep) {
-    while(creep.carry.energy){
-        if(creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(creep.room.controller);
-        }
+    if(creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(creep.room.controller);
     }
     return true
 };
