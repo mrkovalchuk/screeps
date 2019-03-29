@@ -1,3 +1,5 @@
+const REGULAR_CREEPS = require('global');
+
 const creepFactory = {
     build: function (role) {
         const creepName = 'Ball#' + Math.floor(Math.random() * 1000);
