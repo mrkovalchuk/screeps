@@ -11,11 +11,9 @@ const roleHarvester = {
     run: function(creep) {
         if (creep.memory.working && creep.carry.energy === 0) {
             creep.memory.working = false;
-            creep.say('harvest');
         }
         else if (!creep.memory.building && creep.carry.energy > 0) {
             creep.memory.working = true;
-            creep.say('build');
         }
 
         for(let i in functions){
