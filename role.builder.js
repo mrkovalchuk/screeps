@@ -39,7 +39,7 @@ const roleBuilder = {
         } else {
             var target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {filter: (structure) => {
                     return ((structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
-                        || (structure.structureType == STRUCTURE_EXTENSION && structure.energy > 0))
+                        || (structure.structureType == STRUCTURE_EXTENSION && structure.energy > 0) ||  structure.structureType == STRUCTURE_SPAWN)
                 }}))
             if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ffaa00'}});
