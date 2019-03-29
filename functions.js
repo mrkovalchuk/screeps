@@ -78,7 +78,7 @@ const transfer_energy = function(creep) {
 const transfer_energy_only_to_container = function (creep) {
     const target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
-            return (structure.structureType === STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
+            return (structure.structureType === STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] < structure.storeCapacity)
         }
     }));
     if(target){
