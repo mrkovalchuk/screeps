@@ -1,7 +1,3 @@
-const Creep = require('creep');
-let CREEP_MAP = new Map();
-let tmp_map = new Map();
-
 const roleHarvester = require('role.harvester');
 const roleUpgrader = require('role.upgrader');
 const roleBuilder = require('role.builder');
