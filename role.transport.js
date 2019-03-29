@@ -16,6 +16,7 @@ const roleTransporter = {
             }
         }
         else {
+            creep.memory.working = true;
             const target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return ((structure.structureType == STRUCTURE_EXTENSION
@@ -28,6 +29,9 @@ const roleTransporter = {
                     creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
+        }
+        if(creep.carry.energy == 0){
+            cree.memory.working = false
         }
     }
 };
