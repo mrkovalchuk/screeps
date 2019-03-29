@@ -32,7 +32,7 @@ module.exports.loop = function () {
         }
         else if(transporters.length < 4){
             spawn.spawnCreep([MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
-                'T|'+creepName, {memory: {role: 'harvester'}});
+                'T|'+creepName, {memory: {role: 'transporter'}});
         }
         else if(builders.length < 5) {
             let creep = Creep.createCreep('builder');
@@ -82,7 +82,7 @@ module.exports.loop = function () {
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];
 
-        if(creep.memory.role === 'roleTransporter'){
+        if(creep.memory.role === 'transporter'){
             roleTransporter.run(creep)
         }
         if(creep.memory.role === 'harvester') {
