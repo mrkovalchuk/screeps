@@ -19,7 +19,7 @@ const roleBuilder = {
 
         if (creep.memory.building) {
             for(let i in functions){
-                if(functions[i]() === false){
+                if(functions[i](creep) === false){
                     break;
                 }
             }
