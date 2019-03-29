@@ -1,10 +1,10 @@
 const build_structure = function(creep) {
-    let target = creep.memory.build_target;
+    let target = Game.getObjectById(creep.memory.build_target);
     if(!target) {
         target = creep.room.find(FIND_CONSTRUCTION_SITES)[0];
     }
     if (target) {
-        creep.memory.build_target = target;
+        creep.memory.build_target = target.id;
 
         if (creep.build(target) === ERR_NOT_IN_RANGE) {
             creep.moveTo(target, {visualizePathStyle: {stroke: '#303aff'}});
@@ -18,7 +18,7 @@ const build_structure = function(creep) {
 };
 
 const repair_structure = function(creep) {
-    let target = creep.memory.repair_target;
+    let target = Game.getObjectById(creep.memory.repair_target);
     if(!target){
         target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
             filter: object => object.hits < object.hitsMax
@@ -26,7 +26,7 @@ const repair_structure = function(creep) {
     }
 
     if(target){
-        creep.memory.repair_target = target;
+        creep.memory.repair_target = target.id;
 
         if(creep.repair(target) === ERR_NOT_IN_RANGE){
             creep.moveTo(target)
