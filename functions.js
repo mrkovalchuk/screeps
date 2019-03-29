@@ -60,4 +60,53 @@ const use_withdraw = function(creep) {
     }
 };
 
-module.exports = {build_structure, repair_structure, use_withdraw, upgrade_controller};
+const transfer_energy = function(creep) {
+    const target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return ((structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_EXTENSION) &&
+                structure.energy < structure.energyCapacity) || (structure.structureType === STRUCTURE_CONTAINER
+                && structure.store[RESOURCE_ENERGY] < structure.storeCapacity);
+        }
+    }));
+    if(target) {
+        transfer_to(creep, target);
+        return true
+    }
+    return false
+};
+
+const transfer_energy_only_to_container = function (creep) {
+    const target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return (structure.structureType === STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
+        }
+    }));
+    if(target){
+        transfer_to(creep, target);
+        return true
+    }
+    return false
+};
+
+
+const harvest_energy = function (creep) {
+    if(creep.carry.energy < creep.carryCapacity && !creep.memory.working) {
+        const source = creep.pos.findClosestByPath(creep.room.find(FIND_SOURCES));
+
+        if(creep.harvest(source) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(source);
+        }
+        return true
+    }
+    return false
+};
+
+
+const transfer_to = function(creep, target) {
+    if(creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(target);
+    }
+};
+
+module.exports = {build_structure, repair_structure, use_withdraw, upgrade_controller, transfer_energy,
+    transfer_energy_only_to_container, harvest_energy};

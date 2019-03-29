@@ -1,48 +1,26 @@
+const harvest_energy = require("./functions").harvest_energy;
+const upgrade_controller = require("./functions").upgrade_controller;
+const transfer_energy = require("./functions").transfer_energy;
 
-var roleHarvester = {
+const functions = [harvest_energy, transfer_energy, upgrade_controller];
+
+const roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-        let workers_by_node = {}
-        if(creep.carry.energy < creep.carryCapacity && !creep.memory.working) {
-            var sources = creep.pos.findClosestByPath(creep.room.find(FIND_SOURCES));
-
-            if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources);
-            }
-        }
-        else {
-            creep.memory.working = true;
-            var target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) &&
-                        structure.energy < structure.energyCapacity) || (structure.structureType == STRUCTURE_CONTAINER
-                        && structure.store[RESOURCE_ENERGY] < structure.storeCapacity);
-                }
-            }));
-            if(target) {
-                if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-                }
-            }
-            else{
-                var target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
-                    }
-                }))
-                if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(creep.room.controller);
-                }
-                else{
-                    if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(creep.room.controller);
-                    }
-                }
-            }
-        }
-        if(creep.carry.energy == 0){
+        if (creep.memory.working && creep.carry.energy === 0) {
             creep.memory.working = false;
+            creep.say('harvest');
+        }
+        else if (!creep.memory.building && creep.carry.energy > 0) {
+            creep.memory.working = true;
+            creep.say('build');
+        }
+
+        for(let i in functions){
+            if(functions[i](creep) === true){
+                break;
+            }
         }
     }
 };

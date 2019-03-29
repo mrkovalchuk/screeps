@@ -10,7 +10,6 @@ module.exports.loop = function () {
     let builders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'builder'});
     let harvesters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'harvester'});
     let transporters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'transporter'});
-    let spawning_creeps = new Map();
 
     for(const i in Game.spawns) {
         let spawn = Game.spawns[i];
