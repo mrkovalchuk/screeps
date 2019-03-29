@@ -32,7 +32,7 @@ module.exports.loop = function () {
         }
         else if(transporters.length < 4){
             spawn.spawnCreep([MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
-                'H|'+creepName, {memory: {role: 'harvester'}});
+                'T|'+creepName, {memory: {role: 'harvester'}});
         }
         else if(builders.length < 5) {
             let creep = Creep.createCreep('builder');
