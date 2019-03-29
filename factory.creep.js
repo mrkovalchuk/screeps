@@ -4,19 +4,19 @@ const creepFactory = {
         switch (role) {
             case 'builder':
                 Game.spawns['PrimeTown'].spawnCreep(
-                    REGULAR_BUILDER_BODY, 'B|'+ creepName, {memory: {role: 'builder'}});
+                    REGULAR_CREEPS.REGULAR_BUILDER_BODY, 'B|'+ creepName, {memory: {role: 'builder'}});
                 break;
             case 'harvester':
                 Game.spawns['PrimeTown'].spawnCreep(
-                    REGULAR_HARVESTER_BODY, 'H|'+ creepName, {memory: {role: 'harvester'}});
+                    REGULAR_CREEPS.REGULAR_HARVESTER_BODY, 'H|'+ creepName, {memory: {role: 'harvester'}});
                 break;
             case 'upgrader':
                 Game.spawns['PrimeTown'].spawnCreep(
-                    REGULAR_BUILDER_BODY, 'U|'+ creepName, {memory: {role: 'upgrader'}});
+                    REGULAR_CREEPS.REGULAR_BUILDER_BODY, 'U|'+ creepName, {memory: {role: 'upgrader'}});
                 break;
             case 'transport':
                 Game.spawns['PrimeTown'].spawnCreep(
-                    REGULAR_UPGRADER_BODY, 'U|'+ creepName, {memory: {role: 'transporter'}});
+                    REGULAR_CREEPS.REGULAR_UPGRADER_BODY, 'U|'+ creepName, {memory: {role: 'transporter'}});
                 break;
         }
     }
