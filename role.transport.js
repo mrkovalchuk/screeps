@@ -4,10 +4,10 @@ const roleTransporter = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
-        if(creep.carry.energy < creep.carryCapacity) {
+        if(creep.carry.energy < creep.carryCapacity && !creep.memory.working) {
             const target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {filter: (structure) => {
                     return structure.structureType === STRUCTURE_CONTAINER
-                        && (structure.store[RESOURCE_ENERGY] > (structure.storeCapacity / 2))
+                        && (structure.store[RESOURCE_ENERGY] >= creep.carryCapacity)
                 }
             }));
 

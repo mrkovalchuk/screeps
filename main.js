@@ -27,14 +27,18 @@ module.exports.loop = function () {
         const creepName = 'Ball#'+ Math.floor(Math.random() * 1000);
         console.log('upgraders:  '+ upgraders.length + '\n' + 'builders: ' + builders.length + '\n' + 'harvesters: '+ harvesters.length);
 
-        if(harvesters.length < 8){
+        if(harvesters.length < 2){
             spawn.spawnCreep([WORK, WORK, MOVE, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
         }
-        else if(transporters.length < 4){
-            spawn.spawnCreep([MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
-                'T|'+creepName, {memory: {role: 'transporter'}});
+        if(harvesters.length < 6){
+            spawn.spawnCreep([WORK, WORK, WORK, MOVE, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
         }
-        else if(builders.length < 5) {
+        else if(transporters.length < 2){
+            spawn.spawnCreep([MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
+                'T|'+creepName, {memory: {role: 'transporter'}});
+            break;
+        }
+        else if(builders.length < 3) {
             let creep = Creep.createCreep('builder');
             if(spawning_creeps.has(spawn.id)){
                 spawning_creeps.get(spawn.id).push(creep.id)
@@ -46,12 +50,8 @@ module.exports.loop = function () {
             CREEP_MAP.set(creep.id, creep)
             }
 
-        else if(upgraders.length < 4) {
-            spawn.spawnCreep([WORK, MOVE, WORK, CARRY, WORK], 'U|'+creepName, {memory: {role: 'upgrader'}});
-        }
-
-        else if(!Game.spawns[i].memory.stopHarvester && harvesters.length < 12){
-            spawn.spawnCreep([WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'H|'+creepName, {memory: {role: 'harvester'}});
+        else if(upgraders.length < 9) {
+            spawn.spawnCreep([WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'U|'+creepName, {memory: {role: 'upgrader'}});
         }
 
     }
