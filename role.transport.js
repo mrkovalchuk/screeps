@@ -31,7 +31,7 @@ const roleTransporter = {
             }
         }
         if(creep.carry.energy == 0){
-            cree.memory.working = false
+            creep.memory.working = false
         }
     }
 };
