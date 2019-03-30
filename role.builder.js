@@ -9,6 +9,7 @@ const roleBuilder = {
     /** @param {Creep} creep **/
     run: function (creep) {
         if(arguments[1]){
+            console.log('Arguments: ' + arguments[1]);
             creep.memory.working_room = arguments[1]
         }
         if (creep.memory.building && creep.carry.energy === 0) {
@@ -20,10 +21,11 @@ const roleBuilder = {
                 creep.memory.building = true;
             }
             else{
-                console.log('Working room' + creep.memory.working_room);
+                console.log('Working room: ' + creep.memory.working_room);
                 creep.moveTo(new RoomPosition(1, 33, creep.memory.working_room));
+                creep.say('going to another room');
             }
-            creep.say('going to another room');
+
         }
 
         if (creep.memory.building) {
