@@ -23,7 +23,7 @@ const roleTransporter = {
                         || structure.structureType == STRUCTURE_SPAWN)
                         && structure.energy < structure.energyCapacity)
                         || (structure.structure.sctructureType == STRUCTURE_STORAGE
-                        && sctructure.store < structure.storeCapacity));
+                        && structure.store < structure.storeCapacity));
                 }
             }));
             if(target) {
