@@ -17,7 +17,7 @@ const roleBuilder = {
             creep.say('harvest');
         }
         else if (!creep.memory.building && creep.carry.energy > 0) {
-            if(creep.room.name === creep.memory.working_room){
+            if(creep.pos.room.name === creep.memory.working_room){
                 creep.memory.building = true;
             }
             else{
