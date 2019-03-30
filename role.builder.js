@@ -20,7 +20,6 @@ const roleBuilder = {
                 creep.memory.building = true;
             }
             else{
-                console.log('Working room' + creep.memory.working_room);
                 creep.moveTo(new RoomPosition(1, 33, creep.memory.working_room));
             }
             creep.say('going to another room');
