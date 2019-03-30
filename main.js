@@ -18,7 +18,7 @@ module.exports.loop = function () {
 
     for(const room_name in ROOM_CREEPS){
         const creepsCount = ROOM_CREEPS[room_name];
-        console.log('creepsCount' + creepsCount);
+        console.log('creepsCount' + creepsCount.harvesters);
 
         const creepName = 'Ball#'+ Math.floor(Math.random() * 1000);
         console.log('upgraders:  '+ upgraders.length + '\n' + 'builders: ' + builders.length + '\n' + 'harvesters: '+ harvesters.length);
