@@ -22,7 +22,7 @@ const roleTransporter = {
                     return (((structure.structureType == STRUCTURE_EXTENSION
                         || structure.structureType == STRUCTURE_SPAWN)
                         && structure.energy < structure.energyCapacity)
-                        || (structure.structure.sctructureType == STRUCTURE_STORAGE
+                        || (structure.structureType == STRUCTURE_STORAGE
                         && structure.store < structure.storeCapacity));
                 }
             }));
