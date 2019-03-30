@@ -19,7 +19,7 @@ var roleUpgrader = {
 
         }
         else {
-            var source = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {filter: (structure) => {
+            const source = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {filter: (structure) => {
                 return ((structure.structureType == STRUCTURE_EXTENSION && structure.energy > 0))
             }}));
             if (creep.withdraw(source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {

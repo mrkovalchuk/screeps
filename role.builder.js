@@ -8,18 +8,6 @@ const roleBuilder = {
 
     /** @param {Creep} creep **/
     run: function (creep) {
-        if(arguments[1]){
-            creep.memory.working_room = arguments[1]
-        }
-        if (creep.memory.building && creep.carry.energy === 0) {
-            creep.memory.building = false;
-            creep.say('harvest');
-        }
-        else if (!creep.memory.building && creep.carry.energy > 0) {
-            creep.memory.building = true;
-            creep.say('build');
-        }
-
         if (creep.memory.building) {
             for(let i in functions){
                 if(functions[i](creep) === true){
@@ -28,6 +16,7 @@ const roleBuilder = {
             }
         }
         else {
+            creep.memory.building = false;
             use_withdraw(creep)
         }
     }

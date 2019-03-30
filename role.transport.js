@@ -19,9 +19,11 @@ const roleTransporter = {
             creep.memory.working = true;
             const target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
-                    return ((structure.structureType == STRUCTURE_EXTENSION
+                    return (((structure.structureType == STRUCTURE_EXTENSION
                         || structure.structureType == STRUCTURE_SPAWN)
-                        && structure.energy < structure.energyCapacity);
+                        && structure.energy < structure.energyCapacity)
+                        || (structure.structure.sctructureType == STRUCTURE_STORAGE
+                        && sctructure.store < structure.storeCapacity));
                 }
             }));
             if(target) {
