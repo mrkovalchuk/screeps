@@ -25,24 +25,24 @@ module.exports.loop = function () {
 
         if(harvesters.length < creepsCount.harvesters_mini){
             spawn.spawnCreep([WORK, WORK, MOVE, CARRY], 'H|'+creepName, {memory: {role: 'harvester',
-                                                                                  working_room: room_name}});
+                    working_room: room_name}});
         }
         if(harvesters.length < creepsCount.harvesters){
             spawn.spawnCreep([WORK, WORK, WORK, MOVE, CARRY], 'H|'+creepName, {memory: {role: 'harvester',
-                                                                                        working_room: room_name}});
+                    working_room: room_name}});
         }
         else if(transporters.length < creepsCount.transporters){
             spawn.spawnCreep([MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
                 'T|'+creepName, {memory: {role: 'transporter',
-                                          working_room: room_name}});
+                        working_room: room_name}});
         }
         else if(builders.length < creepsCount.builders) {
             creepFactory.build('builder', room_name);
         }
 
-        else if(upgraders.length < 9) {
+        else if(upgraders.length < creepsCount.upgraders) {
             spawn.spawnCreep([WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY], 'U|'+creepName, {memory: {role: 'upgrader',
-                                                                                                  working_room: room_name}});
+                    working_room: room_name}});
         }
     }
 
