@@ -19,12 +19,11 @@ const roleBuilder = {
         else if (!creep.memory.building && creep.carry.energy > 0) {
             if(creep.room.name === creep.memory.working_room){
                 creep.memory.building = true;
-                creep.say('build')
             }
             else{
                 console.log('Working room: ' + creep.memory.working_room);
                 creep.moveTo(new RoomPosition(1, 33, creep.memory.working_room));
-                creep.say('to out');
+                creep.say('going to another room');
                 return
             }
 
