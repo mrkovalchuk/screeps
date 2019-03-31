@@ -107,6 +107,25 @@ const external_harvest = function (creep) {
     return false
 };
 
+const external_builde_structure = function(creep) {
+    let target = Game.getObjectById(creep.memory.build_target);
+    if(!target) {
+        target = creep.room.find(FIND_MY_CONSTRUCTION_SITES)[0];
+    }
+    if (target) {
+        creep.memory.build_target = target.id;
+        creep.memory.building = true;
+        if (creep.build(target) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(target, {visualizePathStyle: {stroke: '#303aff'}});
+        }
+        if (target.progress === target.progressTotal) {
+            creep.memory.build_target = null
+        }
+        return true
+    }
+    return false
+};
+
 const harvest_energy = function (creep) {
     if(creep.carry.energy < creep.carryCapacity) {
         const source = creep.pos.findClosestByPath(creep.room.find(FIND_SOURCES));
@@ -127,4 +146,4 @@ const transfer_to = function(creep, target) {
 };
 
 module.exports = {build_structure, repair_structure, use_withdraw, upgrade_controller, transfer_energy,
-    transfer_energy_only_to_container, harvest_energy, external_harvest};
+    transfer_energy_only_to_container, harvest_energy, external_harvest, external_builde_structure};
