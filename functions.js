@@ -89,6 +89,20 @@ const transfer_energy_only_to_container = function (creep) {
     return false
 };
 
+const external_harvest = function (creep) {
+    if(creep.carry.energy < creep.carryCapacity) {
+        const source = creep.pos.findClosestByPath(creep.room.find(FIND_SOURCES));
+
+        if(source.pos === Game.flags.EnergySpot1.pos){
+            if(creep.harvest(source) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(source);
+            }
+            return true
+        }
+
+    }
+    return false
+};
 
 const harvest_energy = function (creep) {
     if(creep.carry.energy < creep.carryCapacity) {
@@ -110,4 +124,4 @@ const transfer_to = function(creep, target) {
 };
 
 module.exports = {build_structure, repair_structure, use_withdraw, upgrade_controller, transfer_energy,
-    transfer_energy_only_to_container, harvest_energy};
+    transfer_energy_only_to_container, harvest_energy, external_harvest};
