@@ -25,10 +25,9 @@ const creepFactory = {
                         working_room: arguments[1]}});
                 break;
             case 'explorer_builder':
-                let creep = Game.spawns['PrimeTown'].spawnCreep(
+                Game.spawns['PrimeTown'].spawnCreep(
                     REGULAR_CREEPS.REGULAR_BUILDER_BODY, 'E|'+ creepName, {memory: {role: 'explorer_builder',
-                        working_room: arguments[1]}});
-                creep.memory.path = new RoomPosition(2, 18, creep.memory.working_room).id
+                        working_room: arguments[1], path: new RoomPosition(2, 18, creep.memory.working_room).id}});
         }
     }
 };
