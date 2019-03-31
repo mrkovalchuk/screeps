@@ -8,7 +8,8 @@ const functions = [harvest_energy, build_structure, repair_structure];
 const roleExplorer = {
     to_room: function(creep){
         if(creep.room.name !== creep.memory.working_room){
-            creep.moveTo(Game.getObjectById(creep.memory.path));
+            const path = creep.memory.path;
+            creep.moveTo(new RoomPosition(path.x, path.y, path.roomName));
             return false
         }
         else {
