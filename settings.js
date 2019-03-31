@@ -2,13 +2,13 @@ const ROOM_CREEP_SET = {
     main: {
         harvesters_mini: 4,
         harvesters: 6,
-        builders: 6,
+        builders: 5,
         transporters: {
             from: 1, in: 2
         },
-        upgraders: 3
+        upgraders: 4
     },
-    energy_room: {harvesters: 3, explorer_builder: 2, transporters: {in: 2}}
+    energy_room: {explorer_builder: 2}
 };
 
 const ROOM_CREEPS = {

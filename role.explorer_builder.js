@@ -6,19 +6,27 @@ const harvest_energy = require("./functions").harvest_energy;
 const functions = [harvest_energy, build_structure, repair_structure];
 
 const roleExplorer = {
-    take_room_path: function(creep){
-        if(creep.room.name !== creep.memory.working_room){
-            creep.memory.path = new RoomPosition(2, 18, creep.memory.working_room).id
-        }
-    },
     to_room: function(creep){
-        creep.moveTo(creep.memory.path)
+        if(creep.room.name !== creep.memory.working_room){
+            creep.moveTo(Game.getObjectById(creep.memory.path));
+            return false
+        }
+        else {
+            return true
+        }
     },
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(!creep.memory.path){
-            this.take_room_path(creep);
-            this.to_room(creep)
+        if(!this.to_room(creep)){
+            return
+        }
+        if (creep.memory.building && creep.carry.energy === 0) {
+            creep.memory.building = false;
+            creep.say('harvest');
+        }
+        else if (!creep.memory.building && creep.carry.energy > 0) {
+            creep.memory.building = true;
+            creep.say('build');
         }
         for(let i in functions){
             if(functions[i](creep) === true){
