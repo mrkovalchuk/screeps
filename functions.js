@@ -93,7 +93,7 @@ const external_harvest = function (creep) {
     if(creep.carry.energy < creep.carryCapacity) {
         const source = creep.pos.findClosestByPath(creep.room.find(FIND_SOURCES, {
             filter: (structure) => {
-                return structure.pos === Game.flags.EnergySpot1.pos
+                return structure.pos.id === Game.flags.EnergySpot1.pos.id
             } }));
 
         if(creep.harvest(source) === ERR_NOT_IN_RANGE) {
