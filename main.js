@@ -19,7 +19,11 @@ module.exports.loop = function () {
     let spawn = Game.spawns['PrimeTown'];
     spawn.memory.creepsSet = ROOM_CREEPS;
 
-    const towers = spawn.room.find(STRUCTURE_TOWER);
+    const towers = spawn.room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_TOWER
+        }
+    });
     console.log("Towers:" + towers);
     for(const i in towers){
         roleTower(towers[i])
