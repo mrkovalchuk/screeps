@@ -2,6 +2,7 @@ const roleHarvester = require('role.harvester');
 const roleUpgrader = require('role.upgrader');
 const roleBuilder = require('role.builder');
 const roleTransporter = require('role.transport');
+const roleTower = require('tower');
 const roleExplorer = require("./role.explorer_builder");
 const ROOM_CREEPS = require("./settings").ROOM_CREEPS;
 const creepFactory = require("./factory.creep").creepFactory;
@@ -17,6 +18,12 @@ module.exports.loop = function () {
 
     let spawn = Game.spawns['PrimeTown'];
     spawn.memory.creepsSet = ROOM_CREEPS;
+
+    const towers = spawn.room.find(STRUCTURE_TOWER);
+    console.log(towers);
+    for(const i in towers){
+        roleTower(towers[i])
+    }
 
     for(const room_name in ROOM_CREEPS){
         const creepsCount = ROOM_CREEPS[room_name];
