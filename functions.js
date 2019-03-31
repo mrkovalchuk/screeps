@@ -50,7 +50,6 @@ const upgrade_controller = function(creep) {
 
 
 const use_withdraw = function(creep) {
-    creep.memory.building = false;
     let target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
             return ((structure.structureType === STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
