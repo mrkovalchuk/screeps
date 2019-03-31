@@ -20,7 +20,7 @@ module.exports.loop = function () {
     spawn.memory.creepsSet = ROOM_CREEPS;
 
     const towers = spawn.room.find(STRUCTURE_TOWER);
-    console.log(towers);
+    console.log("Towers:" + towers);
     for(const i in towers){
         roleTower(towers[i])
     }
