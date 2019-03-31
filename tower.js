@@ -13,4 +13,4 @@ const roleTower = function (tower) {
 
 };
 
-module.exports.roleTower = roleTower;
+module.exports = roleTower;
