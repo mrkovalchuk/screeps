@@ -5,7 +5,7 @@ const build_structure = function(creep) {
     }
     if (target) {
         creep.memory.build_target = target.id;
-
+        creep.memory.building = true;
         if (creep.build(target) === ERR_NOT_IN_RANGE) {
             creep.moveTo(target, {visualizePathStyle: {stroke: '#303aff'}});
         }
@@ -27,7 +27,7 @@ const repair_structure = function(creep) {
 
     if(target){
         creep.memory.repair_target = target.id;
-
+        creep.memory.building = true;
         if(creep.repair(target) === ERR_NOT_IN_RANGE){
             creep.moveTo(target)
         }
@@ -41,6 +41,7 @@ const repair_structure = function(creep) {
 
 
 const upgrade_controller = function(creep) {
+    creep.memory.building = true;
     if(creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
         creep.moveTo(creep.room.controller);
     }
@@ -49,6 +50,7 @@ const upgrade_controller = function(creep) {
 
 
 const use_withdraw = function(creep) {
+    creep.memory.building = false;
     let target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
             return ((structure.structureType === STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)

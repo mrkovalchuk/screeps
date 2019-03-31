@@ -16,7 +16,6 @@ const roleBuilder = {
             }
         }
         else {
-            creep.memory.building = false;
             use_withdraw(creep)
         }
     }
