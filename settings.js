@@ -8,7 +8,7 @@ const ROOM_CREEP_SET = {
         },
         upgraders: 4
     },
-    energy_room: {explorer_builder: 2, transporters: {from: 0, in: 0}}
+    energy_room: {explorer_builders: 2, explorer_transporters: 1, transporters: {from: 0, in: 0}}
 };
 
 const ROOM_CREEPS = {

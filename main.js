@@ -2,6 +2,7 @@ const roleHarvester = require('role.harvester');
 const roleUpgrader = require('role.upgrader');
 const roleBuilder = require('role.builder');
 const roleTransporter = require('role.transport');
+const roleExplorerTransporter = require('role.explorer.transport');
 const roleTower = require('tower');
 const roleExplorer = require("./role.explorer_builder");
 const ROOM_CREEPS = require("./settings").ROOM_CREEPS;
@@ -13,7 +14,6 @@ module.exports.loop = function () {
     let builders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'builder'});
     let harvesters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'harvester'});
     let transporters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'transporter'});
-    let explorer_builders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_builder'});
 
 
     let spawn = Game.spawns['PrimeTown'];
@@ -30,6 +30,13 @@ module.exports.loop = function () {
     }
 
     for(const room_name in ROOM_CREEPS){
+        let explorer_builders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_builder'
+            && (creep.memory.working_room === room_name)
+        });
+        let explorer_transporters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_transporter'
+            && (creep.memory.working_room === room_name)
+        });
+
         const creepsCount = ROOM_CREEPS[room_name];
         console.log('roomName: ' + room_name);
         console.log('upgraders:  '+ upgraders.length + '\n' + 'builders: ' + builders.length + '\n'
@@ -55,8 +62,16 @@ module.exports.loop = function () {
             else if(upgraders.length < creepsCount.upgraders) {
                 creepFactory.build('upgrader', room_name);
             }
-            if(explorer_builders.length < creepsCount.explorer_builder) {
+            if(explorer_builders.length < creepsCount.explorer_builders) {
                 creepFactory.build('explorer_builder', room_name);
+            }
+            if(explorer_transporters.length < creepsCount.explorer_transporters) {
+                const storage = spawn.room.find(FIND_MY_STRUCTURES, {
+                    filter: (structure) => {
+                        return structure.structureType === STRUCTURE_STORAGE
+                    }
+                });
+                creepFactory.build('explorer_transporter', room_name, storage.id);
             }
         }
 
@@ -81,6 +96,9 @@ module.exports.loop = function () {
         }
         if(creep.memory.role === 'explorer_builder'){
             roleExplorer.run(creep)
+        }
+        if(creep.memory.role === 'explorer_transport'){
+            roleExplorerTransporter.run(creep)
         }
     }
 };

@@ -21,13 +21,20 @@ const creepFactory = {
                 break;
             case 'transporter':
                 Game.spawns['PrimeTown'].spawnCreep(
-                    REGULAR_CREEPS.REGULAR_TRANSPORT_BODY, 'U|'+ creepName, {memory: {role: 'transporter',
+                    REGULAR_CREEPS.REGULAR_TRANSPORT_BODY, 'T|'+ creepName, {memory: {role: 'transporter',
                         working_room: arguments[1]}});
                 break;
             case 'explorer_builder':
                 Game.spawns['PrimeTown'].spawnCreep(
-                    REGULAR_CREEPS.EXPLORER_BUILDER_BODY, 'E|'+ creepName, {memory: {role: 'explorer_builder',
+                    REGULAR_CREEPS.EXPLORER_BUILDER_BODY, 'EB|'+ creepName, {memory: {role: 'explorer_builder',
                         working_room: arguments[1], path: new RoomPosition(2, 32, arguments[1])}});
+                break;
+            case 'explorer_transport':
+                Game.spawns['PrimeTown'].spawnCreep(
+                    REGULAR_CREEPS.EXPLORER_TRANSPORT_BODY, 'ET|'+ creepName, {memory: {role: 'explorer_transporter',
+                        working_room: arguments[1], path: new RoomPosition(2, 32, arguments[1]),
+                        base_container: arguments[2]}});
+                break;
         }
     }
 };
