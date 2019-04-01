@@ -28,12 +28,13 @@ const roleExplorer = {
         else if (!creep.memory.building && creep.carry.energy > 0) {
             creep.memory.building = true;
             creep.say('build');
-        }
-        for(let i in functions){
-            if(functions[i](creep) === true){
-                break;
+            for(let i in functions){
+                if(functions[i](creep) === true){
+                    break;
+                }
             }
         }
+
     }
 };
 
