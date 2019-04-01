@@ -77,8 +77,8 @@ module.exports.loop = function () {
                     filter: (structure) => {
                         return structure.structureType === STRUCTURE_STORAGE
                     }
-                });
-                creepFactory.build('explorer_transporter', room_name, storage);
+                })[0];
+                creepFactory.build('explorer_transporter', room_name, storage.id);
             }
         }
 
@@ -104,10 +104,10 @@ module.exports.loop = function () {
         if(creep.memory.role === 'explorer_builder'){
             roleExplorer.run(creep)
         }
-        if(creep.memory.role === 'explorer_transport'){
+        if(creep.memory.role === 'explorer_transporter'){
             roleExplorerTransporter.run(creep)
         }
-        if(creep.memory.role === 'explorer_transport'){
+        if(creep.memory.role === 'explorer_harvester'){
             roleExplorerHarvester.run(creep)
         }
     }

@@ -30,7 +30,7 @@ const roleExplorerTransporter = {
         else {
             creep.memory.working = true;
             console.log('TARGET: '+creep.memory.base_container);
-            const target = creep.pos.findClosestByPath(creep.memory.base_container);
+            const target = creep.pos.findClosestByPath(Game.getObjectById(creep.memory.base_container));
             if(target) {
                 if(creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                     creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
