@@ -25,17 +25,19 @@ const roleExplorer = {
             creep.memory.building = false;
             creep.say('harvest');
         }
-        else if (!creep.memory.building && creep.carry.energy > 0) {
+        else if (!creep.memory.building && creep.carry.energy === creep.carryCapacity) {
             creep.memory.building = true;
             creep.say('build');
+        }
+        if (creep.memory.building){
             for(let i in functions){
                 if(functions[i](creep) === true){
                     break;
                 }
             }
         }
-        else {
-            external_harvest(creep)
+        else{
+            external_harvest(creep);
         }
 
     }
