@@ -5,7 +5,7 @@ const functions = [harvest_energy, transfer_energy_only_to_container];
 
 const roleExplorerHarvester = {
     to_room: function(creep){
-        if((creep.room.name !== creep.memory.working_room) && !creep.memory.working){
+        if(creep.room.name !== creep.memory.working_room){
             const path = creep.memory.path;
             creep.moveTo(new RoomPosition(path.x, path.y, path.roomName));
             return false
