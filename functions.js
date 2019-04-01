@@ -90,7 +90,7 @@ const transfer_energy_only_to_container = function (creep) {
 };
 
 const external_harvest = function (creep) {
-    if(creep.carry.energy === 0) {
+    if(creep.carry.energy < creep.carryCapacity) {
         const source = creep.pos.findClosestByPath(creep.room.find(FIND_SOURCES, {
             filter: (structure) => {
                 return ((structure.pos.x === Game.flags.EnergySpot1.pos.x)
@@ -127,7 +127,7 @@ const external_builde_structure = function(creep) {
 };
 
 const harvest_energy = function (creep) {
-    if(creep.carry.energy === 0) {
+    if(creep.carry.energy < creep.carryCapacity) {
         const source = creep.pos.findClosestByPath(creep.room.find(FIND_SOURCES));
 
         if(creep.harvest(source) === ERR_NOT_IN_RANGE) {

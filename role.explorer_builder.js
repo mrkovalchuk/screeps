@@ -3,7 +3,7 @@ const external_harvest = require("./functions").external_harvest;
 const repair_structure = require("./functions").repair_structure;
 
 
-const functions = [external_harvest, external_builde_structure, repair_structure];
+const functions = [external_builde_structure, repair_structure, external_harvest];
 
 const roleExplorer = {
     to_room: function(creep){
