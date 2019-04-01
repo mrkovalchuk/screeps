@@ -78,7 +78,7 @@ module.exports.loop = function () {
                         return structure.structureType === STRUCTURE_STORAGE
                     }
                 });
-                creepFactory.build('explorer_transporter', room_name, storage.id);
+                creepFactory.build('explorer_transporter', room_name, storage);
             }
         }
 
