@@ -6,9 +6,9 @@ const ROOM_CREEP_SET = {
         transporters: {
             from: 1, in: 2
         },
-        upgraders: 4
+        upgraders: 5
     },
-    energy_room: {explorer_builders: 2, explorer_harvester: 1,  explorer_transporters: 1, transporters: {from: 0, in: 0}}
+    energy_room: {explorer_builders: 1, explorer_harvester: 1,  explorer_transporters: 1, transporters: {from: 0, in: 0}}
 };
 
 const ROOM_CREEPS = {
