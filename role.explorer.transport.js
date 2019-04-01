@@ -15,7 +15,7 @@ const roleExplorerTransporter = {
         if(!this.to_room(creep)){
             return
         }
-        if(creep.carry.energy < creep.carryCapacity && !creep.memory.working) {
+        if((creep.carry.energy < creep.carryCapacity) && !creep.memory.working) {
             const target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return structure.structureType === STRUCTURE_CONTAINER

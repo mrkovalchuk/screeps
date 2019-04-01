@@ -35,6 +35,11 @@ const creepFactory = {
                         working_room: arguments[1], path: new RoomPosition(2, 32, arguments[1]),
                         base_container: arguments[2]}});
                 break;
+            case 'explorer_harvester':
+                Game.spawns['PrimeTown'].spawnCreep(
+                    REGULAR_CREEPS.REGULAR_HARVESTER_BODY, 'ET|'+ creepName, {memory: {role: 'explorer_harvester',
+                        working_room: arguments[1], path: new RoomPosition(2, 32, arguments[1])}});
+                break;
         }
     }
 };

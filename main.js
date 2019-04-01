@@ -36,6 +36,9 @@ module.exports.loop = function () {
         let explorer_transporters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_transporter'
             && (creep.memory.working_room === room_name)
         });
+        let explorer_harvesters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_harvester'
+            && (creep.memory.working_room === room_name)
+        });
 
         const creepsCount = ROOM_CREEPS[room_name];
         console.log('roomName: ' + room_name);
@@ -64,6 +67,9 @@ module.exports.loop = function () {
             }
             if(explorer_builders.length < creepsCount.explorer_builders) {
                 creepFactory.build('explorer_builder', room_name);
+            }
+            if(explorer_harvesters.length < creepsCount.explorer_harvester) {
+                creepFactory.build('explorer_harvester', room_name);
             }
             if(explorer_transporters.length < creepsCount.explorer_transporters) {
                 const storage = spawn.room.find(FIND_MY_STRUCTURES, {
@@ -96,6 +102,9 @@ module.exports.loop = function () {
         }
         if(creep.memory.role === 'explorer_builder'){
             roleExplorer.run(creep)
+        }
+        if(creep.memory.role === 'explorer_transport'){
+            roleExplorerTransporter.run(creep)
         }
         if(creep.memory.role === 'explorer_transport'){
             roleExplorerTransporter.run(creep)
