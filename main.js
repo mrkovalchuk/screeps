@@ -3,6 +3,7 @@ const roleUpgrader = require('role.upgrader');
 const roleBuilder = require('role.builder');
 const roleTransporter = require('role.transport');
 const roleExplorerTransporter = require('role.explorer.transport');
+const roleExplorerHarvester = require('role.explorer.harvester');
 const roleTower = require('tower');
 const roleExplorer = require("./role.explorer_builder");
 const ROOM_CREEPS = require("./settings").ROOM_CREEPS;
@@ -107,7 +108,7 @@ module.exports.loop = function () {
             roleExplorerTransporter.run(creep)
         }
         if(creep.memory.role === 'explorer_transport'){
-            roleExplorerTransporter.run(creep)
+            roleExplorerHarvester.run(creep)
         }
     }
 };
