@@ -127,7 +127,9 @@ module.exports.loop = function () {
                 roleAttacker.run(creep)
             }
             else {
-                roleAttacker.to_spawn_point(creep)
+                if(!creep.spawning){
+                    roleAttacker.to_spawn_point(creep)
+                }
             }
         }
     }
