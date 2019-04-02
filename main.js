@@ -122,7 +122,7 @@ module.exports.loop = function () {
         if(creep.memory.role === 'explorer_harvester'){
             roleExplorerHarvester.run(creep)
         }
-        if((creep.memory.role === 'explorer_harvester') || creep.memory.role === 'explorer_harvester'){
+        if((creep.memory.role === 'attack_ranger') || creep.memory.role === 'attack_milli'){
             if(spawn.room.memory.attack){
                 roleAttacker.run(creep)
             }
