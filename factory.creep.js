@@ -40,6 +40,18 @@ const creepFactory = {
                     REGULAR_CREEPS.EXPLORER_HARVESTER_BODY, 'EH|'+ creepName, {memory: {role: 'explorer_harvester',
                         working_room: arguments[1], path: new RoomPosition(2, 32, arguments[1])}});
                 break;
+            case 'attack_ranger':
+                Game.spawns['PrimeTown'].spawnCreep(
+                    REGULAR_CREEPS.REGULAR_RANGE_ATTACKER, 'AR|'+ creepName, {memory: {role: 'attack_ranger',
+                        attack_target: arguments[1], path: new RoomPosition(2, 32, arguments[1]),
+                        spawn_point: new RoomPosition(44, 14, 'E44N18')}});
+                break;
+            case 'attack_milli':
+                Game.spawns['PrimeTown'].spawnCreep(
+                    REGULAR_CREEPS.REGULAR_MILLI_ATTACKER, 'AM|'+ creepName, {memory: {role: 'attack_milli',
+                        attack_target: arguments[1], path: new RoomPosition(2, 32, arguments[1]),
+                        spawn_point: new RoomPosition(44, 14, 'E44N18')}});
+                break;
         }
     }
 };

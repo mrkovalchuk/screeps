@@ -4,6 +4,7 @@ const roleBuilder = require('role.builder');
 const roleTransporter = require('role.transport');
 const roleExplorerTransporter = require('role.explorer.transport');
 const roleExplorerHarvester = require('role.explorer.harvester');
+const roleAttacker = require('role.attacker');
 const roleTower = require('tower');
 const roleExplorer = require("./role.explorer_builder");
 const ROOM_CREEPS = require("./settings").ROOM_CREEPS;
@@ -40,6 +41,8 @@ module.exports.loop = function () {
         let explorer_harvesters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_harvester'
             && (creep.memory.working_room === room_name)
         });
+        let attack_ranger = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'attack_ranger'});
+        let attack_milli = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'attack_milli'});
 
         const creepsCount = ROOM_CREEPS[room_name];
         console.log('roomName: ' + room_name);
@@ -60,6 +63,15 @@ module.exports.loop = function () {
             creepFactory.build('transporter', room_name, 'from');
         }
         if(transporters.length >= 2){
+            if(attack_ranger.length < creepsCount.attack_rangers){
+                creepFactory.build('attack_milli', 'E45N19');
+            }
+            if(attack_milli.length < creepsCount.attack_milli){
+                creepFactory.build('attack_ranger', 'E45N19');
+            }
+            if((attack_milli.length + attack_ranger.length) === 11)
+                spawn.room.memory.attack = true;
+
             if(builders.length < creepsCount.builders) {
                 creepFactory.build('builder', room_name);
             }
@@ -109,6 +121,14 @@ module.exports.loop = function () {
         }
         if(creep.memory.role === 'explorer_harvester'){
             roleExplorerHarvester.run(creep)
+        }
+        if((creep.memory.role === 'explorer_harvester') || creep.memory.role === 'explorer_harvester'){
+            if(spawn.room.memory.attack){
+                roleAttacker.run(creep)
+            }
+            else {
+                roleAttacker.to_spawn_point(creep)
+            }
         }
     }
 };
