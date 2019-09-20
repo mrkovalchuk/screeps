@@ -18,7 +18,7 @@ module.exports.loop = function () {
     let transporters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'transporter'});
 
 
-    let spawn = Game.spawns['PrimeTown'];
+    let spawn = Game.spawns['Main Spawn'];
     spawn.memory.creepsSet = ROOM_CREEPS;
 
     const towers = spawn.room.find(FIND_STRUCTURES, {
