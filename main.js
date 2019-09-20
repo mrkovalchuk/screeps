@@ -32,17 +32,17 @@ module.exports.loop = function () {
     }
 
     for(const room_name in ROOM_CREEPS){
-        let explorer_builders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_builder'
-            && (creep.memory.working_room === room_name)
-        });
-        let explorer_transporters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_transporter'
-            && (creep.memory.working_room === room_name)
-        });
-        let explorer_harvesters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_harvester'
-            && (creep.memory.working_room === room_name)
-        });
-        let attack_ranger = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'attack_ranger'});
-        let attack_milli = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'attack_milli'});
+        // let explorer_builders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_builder'
+        //     && (creep.memory.working_room === room_name)
+        // });
+        // let explorer_transporters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_transporter'
+        //     && (creep.memory.working_room === room_name)
+        // });
+        // let explorer_harvesters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'explorer_harvester'
+        //     && (creep.memory.working_room === room_name)
+        // });
+        // let attack_ranger = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'attack_ranger'});
+        // let attack_milli = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'attack_milli'});
 
         const creepsCount = ROOM_CREEPS[room_name];
         console.log('roomName: ' + room_name);
@@ -51,7 +51,7 @@ module.exports.loop = function () {
         console.log('Explorers: '+ explorer_builders);
 
         if(harvesters.length < creepsCount.harvesters_mini){
-            creepFactory.build('harvester', room_name);
+            creepFactory.build('harvester_mini', room_name);
         }
         if(harvesters.length < creepsCount.harvesters){
             creepFactory.build('harvester', room_name);
