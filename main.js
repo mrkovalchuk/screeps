@@ -48,7 +48,7 @@ module.exports.loop = function () {
         console.log('roomName: ' + room_name);
         console.log('upgraders:  '+ upgraders.length + '\n' + 'builders: ' + builders.length + '\n'
             + 'harvesters: '+ harvesters.length + '\ntransporters: ' + transporters.length);
-        console.log('Explorers: '+ explorer_builders);
+        // console.log('Explorers: '+ explorer_builders);
 
         if(harvesters.length < creepsCount.harvesters_mini){
             creepFactory.build('harvester_mini', room_name);
@@ -63,14 +63,14 @@ module.exports.loop = function () {
             creepFactory.build('transporter', room_name, 'from');
         }
         if(transporters.length >= 2){
-            if(attack_ranger.length < creepsCount.attack_rangers){
-                creepFactory.build('attack_milli', 'E45N19');
-            }
-            if(attack_milli.length < creepsCount.attack_milli){
-                creepFactory.build('attack_ranger', 'E45N19');
-            }
-            if((attack_milli.length + attack_ranger.length) === 11)
-                spawn.room.memory.attack = true;
+            // if(attack_ranger.length < creepsCount.attack_rangers){
+            //     creepFactory.build('attack_milli', 'E45N19');
+            // }
+            // if(attack_milli.length < creepsCount.attack_milli){
+            //     creepFactory.build('attack_ranger', 'E45N19');
+            // }
+            // if((attack_milli.length + attack_ranger.length) === 11)
+            //     spawn.room.memory.attack = true;
 
             if(builders.length < creepsCount.builders) {
                 creepFactory.build('builder', room_name);
@@ -78,20 +78,20 @@ module.exports.loop = function () {
             else if(upgraders.length < creepsCount.upgraders) {
                 creepFactory.build('upgrader', room_name);
             }
-            if(explorer_builders.length < creepsCount.explorer_builders) {
-                creepFactory.build('explorer_builder', room_name);
-            }
-            if(explorer_harvesters.length < creepsCount.explorer_harvester) {
-                creepFactory.build('explorer_harvester', room_name);
-            }
-            if(explorer_transporters.length < creepsCount.explorer_transporters) {
-                const storage = spawn.room.find(FIND_MY_STRUCTURES, {
-                    filter: (structure) => {
-                        return structure.structureType === STRUCTURE_STORAGE
-                    }
-                })[0];
-                creepFactory.build('explorer_transporter', room_name, storage.id);
-            }
+            // if(explorer_builders.length < creepsCount.explorer_builders) {
+            //     creepFactory.build('explorer_builder', room_name);
+            // }
+            // if(explorer_harvesters.length < creepsCount.explorer_harvester) {
+            //     creepFactory.build('explorer_harvester', room_name);
+            // }
+            // if(explorer_transporters.length < creepsCount.explorer_transporters) {
+            //     const storage = spawn.room.find(FIND_MY_STRUCTURES, {
+            //         filter: (structure) => {
+            //             return structure.structureType === STRUCTURE_STORAGE
+            //         }
+            //     })[0];
+            //     creepFactory.build('explorer_transporter', room_name, storage.id);
+            // }
         }
 
     }
