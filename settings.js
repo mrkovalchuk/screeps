@@ -14,7 +14,6 @@ const ROOM_CREEP_SET = {
 };
 
 const ROOM_CREEPS = {
-    E45N18: ROOM_CREEP_SET.energy_room,
     W44N49: ROOM_CREEP_SET.main
 };
 

@@ -48,10 +48,12 @@ module.exports.loop = function () {
         console.log('roomName: ' + room_name);
         console.log('upgraders:  '+ upgraders.length + '\n' + 'builders: ' + builders.length + '\n'
             + 'harvesters: '+ harvesters.length + '\ntransporters: ' + transporters.length);
-        // console.log('Explorers: '+ explorer_builders);
 
         if(harvesters.length < creepsCount.harvesters_mini){
             creepFactory.build('harvester_mini', room_name);
+        }
+        else {
+            break;
         }
         if(harvesters.length < creepsCount.harvesters){
             creepFactory.build('harvester', room_name);
@@ -61,6 +63,12 @@ module.exports.loop = function () {
         }
         else if(transporters.length < creepsCount.transporters.from){
             creepFactory.build('transporter', room_name, 'from');
+        }
+        else if(builders.length < creepsCount.builders) {
+            creepFactory.build('builder', room_name);
+        }
+        else if(upgraders.length < creepsCount.upgraders) {
+            creepFactory.build('upgrader', room_name);
         }
         //if(transporters.length >= 2){
             // if(attack_ranger.length < creepsCount.attack_rangers){
@@ -72,12 +80,7 @@ module.exports.loop = function () {
             // if((attack_milli.length + attack_ranger.length) === 11)
             //     spawn.room.memory.attack = true;
 
-        if(builders.length < creepsCount.builders) {
-            creepFactory.build('builder', room_name);
-        }
-        else if(upgraders.length < creepsCount.upgraders) {
-            creepFactory.build('upgrader', room_name);
-        }
+        
             // if(explorer_builders.length < creepsCount.explorer_builders) {
             //     creepFactory.build('explorer_builder', room_name);
             // }
