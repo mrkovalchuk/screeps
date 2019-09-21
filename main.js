@@ -62,7 +62,7 @@ module.exports.loop = function () {
         else if(transporters.length < creepsCount.transporters.from){
             creepFactory.build('transporter', room_name, 'from');
         }
-        if(transporters.length >= 2){
+        //if(transporters.length >= 2){
             // if(attack_ranger.length < creepsCount.attack_rangers){
             //     creepFactory.build('attack_milli', 'E45N19');
             // }
@@ -72,12 +72,12 @@ module.exports.loop = function () {
             // if((attack_milli.length + attack_ranger.length) === 11)
             //     spawn.room.memory.attack = true;
 
-            if(builders.length < creepsCount.builders) {
-                creepFactory.build('builder', room_name);
-            }
-            else if(upgraders.length < creepsCount.upgraders) {
-                creepFactory.build('upgrader', room_name);
-            }
+        if(builders.length < creepsCount.builders) {
+            creepFactory.build('builder', room_name);
+        }
+        else if(upgraders.length < creepsCount.upgraders) {
+            creepFactory.build('upgrader', room_name);
+        }
             // if(explorer_builders.length < creepsCount.explorer_builders) {
             //     creepFactory.build('explorer_builder', room_name);
             // }
@@ -92,7 +92,7 @@ module.exports.loop = function () {
             //     })[0];
             //     creepFactory.build('explorer_transporter', room_name, storage.id);
             // }
-        }
+        //}
 
     }
 
