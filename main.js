@@ -52,24 +52,24 @@ module.exports.loop = function () {
         if(harvesters.length < creepsCount.harvesters_mini){
             creepFactory.build('harvester_mini', room_name);
         }
-        else {
-            break;
-        }
         if(harvesters.length < creepsCount.harvesters){
             creepFactory.build('harvester', room_name);
         }
-        else if(transporters.length < creepsCount.transporters.in){
-            creepFactory.build('transporter', room_name, 'in');
+        if(harvesters.length > 3) {
+            if(transporters.length < creepsCount.transporters.in){
+                creepFactory.build('transporter', room_name, 'in');
+            }
+            else if(transporters.length < creepsCount.transporters.from){
+                creepFactory.build('transporter', room_name, 'from');
+            }
+            if(builders.length < creepsCount.builders) {
+                creepFactory.build('builder', room_name);
+            }
+            else if(upgraders.length < creepsCount.upgraders) {
+                creepFactory.build('upgrader', room_name);
+            }
         }
-        else if(transporters.length < creepsCount.transporters.from){
-            creepFactory.build('transporter', room_name, 'from');
-        }
-        else if(builders.length < creepsCount.builders) {
-            creepFactory.build('builder', room_name);
-        }
-        else if(upgraders.length < creepsCount.upgraders) {
-            creepFactory.build('upgrader', room_name);
-        }
+        
         //if(transporters.length >= 2){
             // if(attack_ranger.length < creepsCount.attack_rangers){
             //     creepFactory.build('attack_milli', 'E45N19');
