@@ -17,11 +17,11 @@ module.exports.loop = function () {
     let spawn = Game.spawns['Main Spawn'];
 
     const current_tick = Game.time % tickTime.regularTime
-    if(current_tick){
+    if(current_tick == 0){
         spawn.memory.actualCreeps = {}
         spawn.memory.actualCreeps.upgraders = getCreepByRole('upgrader');
         spawn.memory.actualCreeps.builders = getCreepByRole('builder');
-        spawn.memory.actualCreeps.harvester = getCreepByRole('harvesters');
+        spawn.memory.actualCreeps.harvesters = getCreepByRole('harvester');
         spawn.memory.actualCreeps.transporters = getCreepByRole('transporter');
     }
 
@@ -53,48 +53,54 @@ module.exports.loop = function () {
 
         const creepsCount = ROOM_CREEPS[room_name];
         console.log('roomName: ' + room_name);
-        console.log('upgraders:  '+ actualCreeps.upgraders.length + '\n' + 'builders: ' + actualCreeps.builders.length + '\n'
-            + 'harvesters: '+ actualCreeps.harvesters.length + '\ntransporters: ' + actualCreeps.transporters.length);
+        console.log('upgraders:  '+ actualCreeps.upgraders + '\n' + 'builders: ' + actualCreeps.builders + '\n'
+            + 'harvesters: '+ actualCreeps.harvesters + '\ntransporters: ' + actualCreeps.transporters);
 
-        if(actualCreeps.harvesters.length < creepsCount.harvesters_mini){
+        if(actualCreeps.harvesters < creepsCount.harvesters_mini){
             creepFactory.build('harvester_mini', room_name);
+            actualCreeps.harvesters += 1;
         }
-        if(actualCreeps.harvesters.length < creepsCount.harvesters){
+        if(actualCreeps.harvesters < creepsCount.harvesters){
             creepFactory.build('harvester', room_name);
+            actualCreeps.harvesters += 1;
         }
-        if(actualCreeps.harvesters.length > 3) {
-            if(actualCreeps.transporters.length < creepsCount.transporters.in){
+        if(actualCreeps.harvesters > 3) {
+            if(actualCreeps.transporters < creepsCount.transporters.in){
                 creepFactory.build('transporter', room_name, 'in');
+                actualCreeps.transporters += 1;
             }
-            else if(actualCreeps.transporters.length < creepsCount.transporters.from){
+            else if(actualCreeps.transporters < creepsCount.transporters.from){
                 creepFactory.build('transporter', room_name, 'from');
+                actualCreeps.transporters += 1;
             }
-            if(actualCreeps.builders.length < creepsCount.builders) {
+            if(actualCreeps.builders < creepsCount.builders) {
                 creepFactory.build('builder', room_name);
+                actualCreeps.builders += 1;
             }
-            else if(actualCreeps.upgraders.length < creepsCount.upgraders) {
+            else if(actualCreeps.upgraders < creepsCount.upgraders) {
                 creepFactory.build('upgrader', room_name);
+                actualCreeps.upgraders += 1;
             }
         }
         
-        //if(transporters.length >= 2){
-            // if(attack_ranger.length < creepsCount.attack_rangers){
+        //if(transporters >= 2){
+            // if(attack_ranger < creepsCount.attack_rangers){
             //     creepFactory.build('attack_milli', 'E45N19');
             // }
-            // if(attack_milli.length < creepsCount.attack_milli){
+            // if(attack_milli < creepsCount.attack_milli){
             //     creepFactory.build('attack_ranger', 'E45N19');
             // }
-            // if((attack_milli.length + attack_ranger.length) === 11)
+            // if((attack_milli + attack_ranger) === 11)
             //     spawn.room.memory.attack = true;
 
         
-            // if(explorer_builders.length < creepsCount.explorer_builders) {
+            // if(explorer_builders < creepsCount.explorer_builders) {
             //     creepFactory.build('explorer_builder', room_name);
             // }
-            // if(explorer_harvesters.length < creepsCount.explorer_harvester) {
+            // if(explorer_harvesters < creepsCount.explorer_harvester) {
             //     creepFactory.build('explorer_harvester', room_name);
             // }
-            // if(explorer_transporters.length < creepsCount.explorer_transporters) {
+            // if(explorer_transporters < creepsCount.explorer_transporters) {
             //     const storage = spawn.room.find(FIND_MY_STRUCTURES, {
             //         filter: (structure) => {
             //             return structure.structureType === STRUCTURE_STORAGE
