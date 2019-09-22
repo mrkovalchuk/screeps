@@ -10,12 +10,13 @@ const roleExplorer = require("./role.explorer_builder");
 const ROOM_CREEPS = require("./settings").ROOM_CREEPS;
 const creepFactory = require("./factory.creep").creepFactory;
 const getCreepByRole = require('./utils').getCreepByRole
+const tickTime = require('./settings').tickTime
 
 
 module.exports.loop = function () {
     let spawn = Game.spawns['Main Spawn'];
 
-    const current_tick = Game.time % settings.ticktime.regularTime
+    const current_tick = Game.time % tickTime.regularTime
     if(current_tick){
         spawn.memory.actualCreeps = {}
         spawn.memory.actualCreeps.upgraders = getCreepByRole('upgrader');
