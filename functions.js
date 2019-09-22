@@ -132,7 +132,7 @@ const external_builde_structure = function(creep) {
     return false
 };
 
-const harvest_energy = function (creep) {
+const harvest_energy = function(creep) {
     if(creep.carry.energy < creep.carryCapacity) {
         const source = creep.pos.findClosestByPath(creep.room.find(FIND_SOURCES));
 

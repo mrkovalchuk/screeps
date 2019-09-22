@@ -9,17 +9,23 @@ const roleTower = require('tower');
 const roleExplorer = require("./role.explorer_builder");
 const ROOM_CREEPS = require("./settings").ROOM_CREEPS;
 const creepFactory = require("./factory.creep").creepFactory;
+const getCreepByRole = require('./utils').getCreepByRole
 
 
 module.exports.loop = function () {
-    let upgraders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'upgrader'});
-    let builders = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'builder'});
-    let harvesters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'harvester'});
-    let transporters = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'transporter'});
-
-
     let spawn = Game.spawns['Main Spawn'];
+
+    const current_tick = Game.time % settings.ticktime.regularTime
+    if(current_tick){
+        spawn.memory.actualCreeps = {}
+        spawn.memory.actualCreeps.upgraders = getCreepByRole('upgrader');
+        spawn.memory.actualCreeps.builders = getCreepByRole('builder');
+        spawn.memory.actualCreeps.harvester = getCreepByRole('harvesters');
+        spawn.memory.actualCreeps.transporters = getCreepByRole('transporter');
+    }
+
     spawn.memory.creepsSet = ROOM_CREEPS;
+    const actualCreeps = spawn.memory.actualCreeps
 
     const towers = spawn.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
@@ -49,23 +55,23 @@ module.exports.loop = function () {
         console.log('upgraders:  '+ upgraders.length + '\n' + 'builders: ' + builders.length + '\n'
             + 'harvesters: '+ harvesters.length + '\ntransporters: ' + transporters.length);
 
-        if(harvesters.length < creepsCount.harvesters_mini){
+        if(actualCreeps.harvesters.length < creepsCount.harvesters_mini){
             creepFactory.build('harvester_mini', room_name);
         }
-        if(harvesters.length < creepsCount.harvesters){
+        if(actualCreeps.harvesters.length < creepsCount.harvesters){
             creepFactory.build('harvester', room_name);
         }
-        if(harvesters.length > 3) {
-            if(transporters.length < creepsCount.transporters.in){
+        if(actualCreeps.harvesters.length > 3) {
+            if(actualCreeps.transporters.length < creepsCount.transporters.in){
                 creepFactory.build('transporter', room_name, 'in');
             }
-            else if(transporters.length < creepsCount.transporters.from){
+            else if(actualCreeps.transporters.length < creepsCount.transporters.from){
                 creepFactory.build('transporter', room_name, 'from');
             }
-            if(builders.length < creepsCount.builders) {
+            if(actualCreeps.builders.length < creepsCount.builders) {
                 creepFactory.build('builder', room_name);
             }
-            else if(upgraders.length < creepsCount.upgraders) {
+            else if(actualCreeps.upgraders.length < creepsCount.upgraders) {
                 creepFactory.build('upgrader', room_name);
             }
         }

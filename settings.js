@@ -17,4 +17,10 @@ const ROOM_CREEPS = {
     W44N49: ROOM_CREEP_SET.main
 };
 
+const tickTime = {
+    regularTime: 25,
+    warTime: 2,
+}
+
 module.exports.ROOM_CREEPS = ROOM_CREEPS;
+module.exports.tickTime = tickTime;
