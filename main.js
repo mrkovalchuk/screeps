@@ -53,8 +53,8 @@ module.exports.loop = function () {
 
         const creepsCount = ROOM_CREEPS[room_name];
         console.log('roomName: ' + room_name);
-        console.log('upgraders:  '+ upgraders.length + '\n' + 'builders: ' + builders.length + '\n'
-            + 'harvesters: '+ harvesters.length + '\ntransporters: ' + transporters.length);
+        console.log('upgraders:  '+ actualCreeps.upgraders.length + '\n' + 'builders: ' + actualCreeps.builders.length + '\n'
+            + 'harvesters: '+ actualCreeps.harvesters.length + '\ntransporters: ' + actualCreeps.transporters.length);
 
         if(actualCreeps.harvesters.length < creepsCount.harvesters_mini){
             creepFactory.build('harvester_mini', room_name);
