@@ -57,29 +57,41 @@ module.exports.loop = function () {
             + 'harvesters: '+ actualCreeps.harvesters + '\ntransporters: ' + actualCreeps.transporters);
 
         if(actualCreeps.harvesters < creepsCount.harvesters_mini){
-            creepFactory.build('harvester_mini', room_name);
-            actualCreeps.harvesters += 1;
+            const result = creepFactory.build('harvester_mini', room_name);
+            if (result == 0) {
+                actualCreeps.harvesters += 1;
+            }
         }
         if(actualCreeps.harvesters < creepsCount.harvesters){
-            creepFactory.build('harvester', room_name);
-            actualCreeps.harvesters += 1;
+            const result = creepFactory.build('harvester', room_name);
+            if (result == 0) {
+                actualCreeps.harvesters += 1;
+            }
         }
         if(actualCreeps.harvesters > 3) {
             if(actualCreeps.transporters < creepsCount.transporters.in){
-                creepFactory.build('transporter', room_name, 'in');
-                actualCreeps.transporters += 1;
+                const result = creepFactory.build('transporter', room_name, 'in');
+                if (result == 0) {
+                    actualCreeps.transporters += 1;
+                }
             }
             else if(actualCreeps.transporters < creepsCount.transporters.from){
-                creepFactory.build('transporter', room_name, 'from');
-                actualCreeps.transporters += 1;
+                const result = creepFactory.build('transporter', room_name, 'from');
+                if (result == 0) {
+                    actualCreeps.transporters += 1;
+                }
             }
             if(actualCreeps.builders < creepsCount.builders) {
-                creepFactory.build('builder', room_name);
-                actualCreeps.builders += 1;
+                const result = creepFactory.build('builder', room_name);
+                if (result == 0) {
+                    actualCreeps.builders += 1;
+                }
             }
             else if(actualCreeps.upgraders < creepsCount.upgraders) {
-                creepFactory.build('upgrader', room_name);
-                actualCreeps.upgraders += 1;
+                const result = creepFactory.build('upgrader', room_name);
+                if (result == 0) {
+                    actualCreeps.upgraders += 1;
+                }
             }
         }
         
