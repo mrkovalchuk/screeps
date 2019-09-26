@@ -1,12 +1,12 @@
 const ROOM_CREEP_SET = {
     main: {
-        harvesters_mini: 3,
+        harvesters_mini: 2,
         harvesters: 5,
-        builders: 2,
+        builders: 1,
         transporters: {
             from: 0, in: 3
         },
-        upgraders: 3,
+        upgraders: 2,
         attack_milli: 0,
         attack_rangers: 0,
     },

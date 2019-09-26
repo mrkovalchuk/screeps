@@ -33,7 +33,7 @@ module.exports.loop = function () {
             return structure.structureType === STRUCTURE_TOWER
         }
     });
-    console.log("Towers:" + towers);
+    // console.log("Towers:" + towers);
     for(const i in towers){
         roleTower(towers[i])
     }
@@ -52,9 +52,9 @@ module.exports.loop = function () {
         // let attack_milli = _.filter(Game.creeps, function(creep){ return creep.memory.role === 'attack_milli'});
 
         const creepsCount = ROOM_CREEPS[room_name];
-        console.log('roomName: ' + room_name);
-        console.log('upgraders:  '+ actualCreeps.upgraders + '\n' + 'builders: ' + actualCreeps.builders + '\n'
-            + 'harvesters: '+ actualCreeps.harvesters + '\ntransporters: ' + actualCreeps.transporters);
+        // console.log('roomName: ' + room_name);
+        // console.log('upgraders:  '+ actualCreeps.upgraders + '\n' + 'builders: ' + actualCreeps.builders + '\n'
+        //     + 'harvesters: '+ actualCreeps.harvesters + '\ntransporters: ' + actualCreeps.transporters);
 
         if(actualCreeps.harvesters < creepsCount.harvesters_mini){
             const result = creepFactory.build('harvester_mini', room_name);
