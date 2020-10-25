@@ -1,45 +1,33 @@
-const roleAttacker = {
-    move: function(creep){
-        if(creep.room.name !== creep.memory.target_room){
-            const path = creep.memory.path;
-            creep.moveTo(new RoomPosition(path.x, path.y, path.roomName));
-            return false
-        }
-        else {
-            return true
-        }
-    },
-    to_spawn_point: function(creep){
-        if(!creep.pos.inRangeTo(creep.memory.spawn_point, 4)) {
-            creep.moveTo(creep.memory.spawn_point)
-        }
+const upgrade_controller = require("./functions").upgrade_controller;
+const use_withdraw = require("./functions").use_withdraw;
+const repair_structure = require("./functions").repair_structure;
+const build_structure = require("./functions").build_structure;
 
-    },
+const functions = [build_structure, upgrade_controller, use_withdraw];
+const roleBuilder = {
+
     /** @param {Creep} creep **/
     run: function (creep) {
-
-        if(creep.body.includes('RANGED_ATTACK')) {
-            if(target){
-                const targets = creep.pos.findInRange(FIND_HOSTILE_CONSTRUCTION_SITES, 3);
-                if (targets.length > 0) {
-                creep.rangedAttack(targets[0])
-                }
-            }
-            else {
-                this.move(creep)
-            }
-
+        if (creep.memory.building && creep.carry.energy === 0) {
+            creep.memory.building = false;
+            creep.say('harvest');
         }
-        if(creep.body.includes('ATTACK')){
-            const target = creep.pos.findClosestByRange(FIND_HOSTILE_CONSTRUCTION_SITES);
-            if(target) {
-                if(creep.attack(target) === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+        else if (!creep.memory.building && creep.carry.energy === creep.carryCapacity) {
+            creep.memory.building = true;
+            creep.say('build');
+        }
+
+        if (creep.memory.building) {
+            for(let i in functions){
+                if(functions[i](creep) === true){
+                    break;
                 }
             }
         }
-
+        else {
+            use_withdraw(creep)
+        }
     }
 };
 
-module.exports = roleAttacker;
+module.exports = roleBuilder;

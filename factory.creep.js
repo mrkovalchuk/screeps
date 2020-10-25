@@ -1,7 +1,7 @@
 const REGULAR_CREEPS = require('global');
 
 const creepFactory = {
-    build: function (role) {
+    build: function (role, dryRun=false) {
         const creepName = 'Ball#' + Math.floor(Math.random() * 1000);
         switch(role) {
             case 'builder':
@@ -12,7 +12,7 @@ const creepFactory = {
             case 'harvester':
                 return Game.spawns['Main Spawn'].spawnCreep(
                     REGULAR_CREEPS.REGULAR_HARVESTER_BODY, 'H|'+ creepName, {memory: {role: 'harvester',
-                        working_room: arguments[1]}});
+                        working_room: arguments[1], dryRun: dryRun}});
                 break;
             case 'harvester_mini':
                 return Game.spawns['Main Spawn'].spawnCreep(
