@@ -1,14 +1,15 @@
-var roleHarvester = require('role.harvester');
+var harvest = require('function')
 
-const HARVESTER = 'harvester'
+const WORKS_BY_ROLE = {
+    'harvester': [harvest]
+}
 
 module.exports = {
     run: function(creep) {
-        const creep_role = creep.memory.role
-        switch(creep_role) {
-            case HARVESTER:
-                roleHarvester.run(creep)
-                
+        var creep_functions = WORKS_BY_ROLE[creep.memory.role]
+        
+        for(let i in creep_functions){
+            functions[i](creep)
         }
     }
 
