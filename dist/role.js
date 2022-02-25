@@ -1,7 +1,7 @@
-var harvest = require('function')
+var harvest = require('function').harvest
 
 const WORKS_BY_ROLE = {
-    'harvester': [harvest]
+    'harvester': [harvest, ],
 }
 
 module.exports = {
@@ -9,8 +9,7 @@ module.exports = {
         var creep_functions = WORKS_BY_ROLE[creep.memory.role]
         
         for(let i in creep_functions){
-            functions[i](creep)
+            creep_functions[i](creep)
         }
     }
-
 }

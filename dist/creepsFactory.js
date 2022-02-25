@@ -8,11 +8,15 @@ module.exports = {
      * */
     build: function(body, spawn, role) {
         var creep_name = 'Ball#' + Math.floor(Math.random() * 1000);
-        var creep = spawn.spawnCreep(body, creep_name, {memory: role})
-
+        
+        let memory = {'role': role}
         switch (role) {
-            case HARVESTER:
-                creep.memory.target = creep.room.find(FIND_SOURCES)[0]
+            case 'harvester':
+                memory.target_id = spawn.room.find(FIND_SOURCES)[0].id
         }
+
+        spawn.spawnCreep(body, creep_name, {'memory': memory})
+
+        
     }
 }
