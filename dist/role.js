@@ -1,8 +1,8 @@
-var harvest = require('functions').harvest
-var transfer_energy = require('functions').transfer_energy
+const { upgrade_controller, transfer_energy, harvest } = require('./functions')
 
 const WORKS_BY_ROLE = {
-    'harvester': [harvest, transfer_energy],
+    'harvester': [harvest, transfer_energy, upgrade_controller],
+    'multiworker': [harvest, transfer_energy, upgrade_controller],
 }
 
 module.exports = {

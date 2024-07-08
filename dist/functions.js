@@ -1,18 +1,27 @@
+const upgrade_controller = function(creep, spawn) {
+    if(creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(creep.room.controller);
+        return true
+    }
+    return false
+};
+
+
 const harvest = function(creep, spawn) {
-    if (creep.store.getFreeCapacity() == 0) {
-        // do not harvest if full
+    const harvesting = creep.memory.mode === 'harvesting' || creep.store.getCapacity() === creep.store.getFreeCapacity()    
+    if (!harvesting) {
         return false
     }
 
     let target = Game.getObjectById(creep.memory.target_id)
 
     if (!target) {
-        console.log('looking for a new target to harvest', creep.name)
         target = spawn.room.find(FIND_SOURCES)[0]
         creep.memory.target_id = target.id
     }
 
-    if(creep.store.getFreeCapacity() > 0) {    
+    if(creep.store.getFreeCapacity() > 0) {
+        creep.memory.mode = 'harvesting'
         if(creep.harvest(target) == ERR_NOT_IN_RANGE) {
             creep.moveTo(target);
         }
@@ -20,6 +29,7 @@ const harvest = function(creep, spawn) {
     }
 
     creep.memory.target_id = null
+    creep.memory.mode = null
     return false
 };
 
@@ -32,7 +42,6 @@ const transfer_energy = function(creep, spawn) {
     let target = Game.getObjectById(creep.memory.target_id)
 
     if (!target) {
-        console.log('looking for a new target to transfer')
         target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (
@@ -61,4 +70,4 @@ const transfer_to = function(creep, target) {
     return true
 };
 
-module.exports = {harvest, transfer_energy};
+module.exports = {harvest, transfer_energy, upgrade_controller};
