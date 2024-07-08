@@ -6,11 +6,11 @@ const WORKS_BY_ROLE = {
 }
 
 module.exports = {
-    run: function(creep) {
+    run: function(creep, spawn) {
         var creep_functions = WORKS_BY_ROLE[creep.memory.role]
         
         for(let i in creep_functions){
-            if(creep_functions[i](creep) === true) break
+            if(creep_functions[i](creep, spawn) === true) break
         }
     }
 }
