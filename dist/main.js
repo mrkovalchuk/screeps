@@ -10,13 +10,6 @@ const CREEPS_CONFIG = {
         'memory': {
             'role': 'harvester'
         },
-        'count': 4,
-    },
-    'builder': {
-        'body': [WORK, CARRY, MOVE],
-        'memory': {
-            'role': 'builder'
-        },
         'count': 3,
     },
     'multiworker': {
@@ -24,7 +17,7 @@ const CREEPS_CONFIG = {
         'memory': {
             'role': 'multiworker'
         },
-        'count': 8,
+        'count': 3,
     }
 }
 
@@ -33,15 +26,15 @@ module.exports.loop = function () {
     var spawn = Game.spawns['Spawn1']
 
     const harvesters_count = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester').length
-    const builders_count = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder').length
+    const multiworkers_count = _.filter(Game.creeps, (creep) => creep.memory.role == 'multiworker').length
     
     if (harvesters_count < CREEPS_CONFIG.harvester.count) {
         builder.build(CREEPS_CONFIG.harvester.body, spawn, 'harvester')
     }
 
-    // if (builders_count < CREEPS_CONFIG.builder.count) {
-    //     builder.build(CREEPS_CONFIG.builder.body, spawn, 'builder')
-    // }
+    if (multiworkers_count < CREEPS_CONFIG.multiworker.count) {
+        builder.build(CREEPS_CONFIG.multiworker.body, spawn, 'multiworker')
+    }
     
 
     for(var name in Game.creeps) {

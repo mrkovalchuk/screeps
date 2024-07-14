@@ -1,8 +1,9 @@
-const { upgrade_controller, transfer_energy, harvest } = require('./functions')
+const { harvest, transfer_energy, upgrade_controller, build } = require('./functions');
+const { CREEP_ROLES, CREEP_MODES } = require('./constants');
 
 const WORKS_BY_ROLE = {
-    'harvester': [harvest, transfer_energy, upgrade_controller],
-    'multiworker': [harvest, transfer_energy, upgrade_controller],
+    [CREEP_ROLES.HARVESTER]: [harvest, transfer_energy, upgrade_controller],
+    [CREEP_ROLES.MULTIWORKER]: [harvest, transfer_energy, build, upgrade_controller],
 }
 
 module.exports = {
@@ -10,7 +11,11 @@ module.exports = {
         var creep_functions = WORKS_BY_ROLE[creep.memory.role]
         
         for(let i in creep_functions){
-            if(creep_functions[i](creep, spawn) === true) break
+            let new_mode = creep_functions[i](creep, spawn);
+            if(new_mode !== CREEP_MODES.IDLE) {
+                creep.memory.mode = new_mode;
+                break;
+            }
         }
     }
 }

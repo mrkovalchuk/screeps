@@ -1,73 +1,105 @@
-const upgrade_controller = function(creep, spawn) {
-    if(creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller);
-        return true
-    }
-    return false
-};
-
+const { CREEP_MODES } = require('./constants');
 
 const harvest = function(creep, spawn) {
-    const harvesting = creep.memory.mode === 'harvesting' || creep.store.getCapacity() === creep.store.getFreeCapacity()    
-    if (!harvesting) {
-        return false
+    if (creep.store.getFreeCapacity() === 0) {
+        creep.memory.mode = CREEP_MODES.IDLE;
+        return CREEP_MODES.IDLE;
     }
 
-    let target = Game.getObjectById(creep.memory.target_id)
+    if (creep.memory.mode !== CREEP_MODES.HARVESTING) {
+        creep.memory.mode = CREEP_MODES.HARVESTING;
+    }
 
+    let target = Game.getObjectById(creep.memory.target_id);
     if (!target) {
-        target = spawn.room.find(FIND_SOURCES)[0]
-        creep.memory.target_id = target.id
-    }
-
-    if(creep.store.getFreeCapacity() > 0) {
-        creep.memory.mode = 'harvesting'
-        if(creep.harvest(target) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(target);
+        target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+        if (!target) {
+            creep.memory.mode = CREEP_MODES.IDLE;
+            return CREEP_MODES.IDLE;
         }
-        return true
+        creep.memory.target_id = target.id;
     }
 
-    creep.memory.target_id = null
-    creep.memory.mode = null
-    return false
+    if(creep.harvest(target) == ERR_NOT_IN_RANGE) {
+        creep.moveTo(target);
+    }
+    return CREEP_MODES.HARVESTING;
+};
+
+const build = function(creep, spawn) {
+    if (creep.store[RESOURCE_ENERGY] === 0) {
+        creep.memory.mode = CREEP_MODES.IDLE;
+        creep.memory.target_id = null;
+        return CREEP_MODES.IDLE;
+    }
+
+    if (creep.memory.mode !== CREEP_MODES.BUILDING) {
+        creep.memory.mode = CREEP_MODES.BUILDING;
+    }
+
+    let target = Game.getObjectById(creep.memory.target_id);
+    if (!target) {
+        target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+        if (!target) {
+            creep.memory.mode = CREEP_MODES.IDLE;
+            return CREEP_MODES.IDLE;
+        }
+        creep.memory.target_id = target.id;
+    }
+
+    if(creep.build(target) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(target);
+    }
+    return CREEP_MODES.BUILDING;
 };
 
 const transfer_energy = function(creep, spawn) {
-    if (creep.store.getFreeCapacity() === creep.store.getCapacity()) {
-        // nothing to transfer
-        return false
+    if (creep.store[RESOURCE_ENERGY] === 0) {
+        creep.memory.mode = CREEP_MODES.IDLE;
+        creep.memory.target_id = null;
+        return CREEP_MODES.IDLE;
     }
 
-    let target = Game.getObjectById(creep.memory.target_id)
+    if (creep.memory.mode !== CREEP_MODES.TRANSFERRING) {
+        creep.memory.mode = CREEP_MODES.TRANSFERRING;
+    }
 
+    let target = Game.getObjectById(creep.memory.target_id);
     if (!target) {
-        target = creep.pos.findClosestByPath(creep.room.find(FIND_STRUCTURES, {
+        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (structure) => {
-                return (
-                    structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_EXTENSION) && structure.energy < structure.energyCapacity;
+                return (structure.structureType === STRUCTURE_SPAWN || 
+                        structure.structureType === STRUCTURE_EXTENSION) && 
+                        structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
             }
-        }));
-    }
-    
-    if(target) {
-        creep.memory.target_id = target.id
-        const trasnfered = transfer_to(creep, target);
-        if (trasnfered) {
-            creep.memory.target_id = null
+        });
+        if (!target) {
+            creep.memory.mode = CREEP_MODES.IDLE;
+            return CREEP_MODES.IDLE;
         }
-        return true
+        creep.memory.target_id = target.id;
     }
 
-    return false
-};
-
-const transfer_to = function(creep, target) {
     if(creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(target);
-        return false
     }
-    return true
+    return CREEP_MODES.TRANSFERRING;
 };
 
-module.exports = {harvest, transfer_energy, upgrade_controller};
+const upgrade_controller = function(creep, spawn) {
+    if (creep.store[RESOURCE_ENERGY] === 0) {
+        creep.memory.mode = CREEP_MODES.IDLE;
+        return CREEP_MODES.IDLE;
+    }
+
+    if (creep.memory.mode !== CREEP_MODES.UPGRADING) {
+        creep.memory.mode = CREEP_MODES.UPGRADING;
+    }
+
+    if(creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(creep.room.controller);
+    }
+    return CREEP_MODES.UPGRADING;
+};
+
+module.exports = {harvest, transfer_energy, upgrade_controller, build};
